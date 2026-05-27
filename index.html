@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eid Surprise</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#050505;
+font-family:Poppins,sans-serif;
+color:white;
+overflow:hidden;
+}
+
+.screen{
+position:fixed;
+inset:0;
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+padding:20px;
+background:#050505;
+}
+
+.screen.active{
+display:flex;
+}
+
+h1{
+font-size:1.8rem;
+line-height:1.5;
+margin-bottom:20px;
+}
+
+p{
+opacity:.8;
+line-height:1.7;
+}
+
+button{
+margin-top:25px;
+padding:14px 28px;
+border:none;
+border-radius:50px;
+background:rgba(255,255,255,.12);
+color:white;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+background:rgba(255,255,255,.2);
+}
+
+.choice-container{
+display:grid;
+gap:15px;
+width:100%;
+max-width:400px;
+margin-top:20px;
+}
+
+.choice{
+height:200px;
+border-radius:25px;
+overflow:hidden;
+position:relative;
+cursor:pointer;
+}
+
+.choice img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.choice-text{
+position:absolute;
+bottom:0;
+width:100%;
+padding:15px;
+background:linear-gradient(transparent,rgba(0,0,0,.9));
+}
+
+img.final-image{
+width:90%;
+max-width:420px;
+border-radius:25px;
+margin-top:20px;
+}
+
+.video-box video{
+width:90%;
+max-width:420px;
+border-radius:25px;
+margin-top:20px;
+}
+
+.loading{
+margin-top:20px;
+opacity:.7;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+50%{opacity:.2;}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+<source src="music.mp3">
+</audio>
+
+<!-- VOICE -->
+<audio id="voiceNote">
+<source src="eid-message.mp3">
+</audio>
+
+<!-- INTRO -->
+<div class="screen active" id="intro">
+
+<h1>
+System initializing...<br><br>
+Loading Eid memories...
+</h1>
+
+<p>Analyzing our best moment...</p>
+
+<button onclick="start()">
+Start
+</button>
+
+</div>
+
+<!-- CHOICE 1 -->
+<div class="screen" id="scene1">
+
+<h1>Which moment was the best?</h1>
+
+<div class="choice-container">
+
+<div class="choice" onclick="go('scene2')">
+<img src="date-night.jpg">
+<div class="choice-text">🍕 This one</div>
+</div>
+
+<div class="choice" onclick="go('scene2')">
+<img src="coffee-date.jpg">
+<div class="choice-text">☕ This one</div>
+</div>
+
+<div class="choice" onclick="go('scene2')">
+<img src="funny-moment.jpg">
+<div class="choice-text">🌃 This one</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- VIDEO -->
+<div class="screen" id="scene2">
+
+<h1>Hmm... interesting 😒</h1>
+
+<div class="video-box">
+<video autoplay muted loop playsinline>
+<source src="walking-together.mp4">
+</video>
+</div>
+
+<button onclick="go('scene3')">Continue</button>
+
+</div>
+
+<!-- CHOICE 2 -->
+<div class="screen" id="scene3">
+
+<h1>Okay but THIS moment?</h1>
+
+<div class="choice-container">
+
+<div class="choice" onclick="go('memory1')">
+<img src="golden-hour.jpg">
+<div class="choice-text">✨ This</div>
+</div>
+
+<div class="choice" onclick="go('memory1')">
+<img src="car-vibes.jpg">
+<div class="choice-text">🚗 This</div>
+</div>
+
+<div class="choice" onclick="go('memory1')">
+<img src="chaos-date.jpg">
+<div class="choice-text">😂 This</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- MOMENTS (ONE BY ONE) -->
+
+<div class="screen" id="memory1">
+<h1>Maybe this moment.</h1>
+<img class="final-image" src="smile-01.jpg">
+<button onclick="go('memory2')">Next</button>
+</div>
+
+<div class="screen" id="memory2">
+<h1>No wait... this moment.</h1>
+<img class="final-image" src="smile-02.jpg">
+<button onclick="go('memory3')">Next</button>
+</div>
+
+<div class="screen" id="memory3">
+<h1>This moment was perfect.</h1>
+<div class="video-box">
+<video autoplay muted loop playsinline>
+<source src="laughing.mp4">
+</video>
+</div>
+<button onclick="go('memory4')">Next</button>
+</div>
+
+<div class="screen" id="memory4">
+<h1>Or this moment.</h1>
+<img class="final-image" src="late-night.jpg">
+<button onclick="go('memory5')">Next</button>
+</div>
+
+<div class="screen" id="memory5">
+<h1>Still can’t decide.</h1>
+<img class="final-image" src="random-selfie.jpg">
+<button onclick="go('memory6')">Next</button>
+</div>
+
+<div class="screen" id="memory6">
+<h1>This moment too.</h1>
+<div class="video-box">
+<video autoplay muted loop playsinline>
+<source src="random-video.mp4">
+</video>
+</div>
+<button onclick="go('memory7')">Next</button>
+</div>
+
+<div class="screen" id="memory7">
+<h1>Every moment hits different.</h1>
+<img class="final-image" src="mirror-pic.jpg">
+<button onclick="go('memory8')">Next</button>
+</div>
+
+<div class="screen" id="memory8">
+<h1>Even the small moments.</h1>
+<img class="final-image" src="tiny-moment.jpg">
+<button onclick="go('final')">Continue</button>
+</div>
+
+<!-- FINAL -->
+<div class="screen" id="final">
+
+<h1>
+Maybe it was never about the place.
+</h1>
+
+<p>
+It was always about the person ❤️
+</p>
+
+<img class="final-image" src="favorite-memory.jpg">
+
+<button onclick="playVoice()">
+Open your gift 🎁
+</button>
+
+</div>
+
+<!-- SCRIPT -->
+<script>
+
+const music = document.getElementById("bgMusic");
+const voice = document.getElementById("voiceNote");
+
+function start(){
+
+document.getElementById("intro").classList.remove("active");
+document.getElementById("scene1").classList.add("active");
+
+music.volume = 0.12;
+music.play();
+
+}
+
+function go(id){
+
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+
+}
+
+function playVoice(){
+
+let v = music.volume;
+
+let fade = setInterval(()=>{
+
+if(v > 0.02){
+v -= 0.01;
+music.volume = v;
+}else{
+clearInterval(fade);
+music.pause();
+voice.play();
+}
+
+},120);
+
+}
+
+</script>
+
+</body>
+</html>
